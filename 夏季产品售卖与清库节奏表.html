@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>夏季产品跨国家售卖与清库节奏可视化报表</title>
+  <style>
+    :root{
+      --bg:#f8fafc; --card:#ffffff; --text:#1e293b; --muted:#64748b; --line:#e2e8f0;
+      --blue:#2563eb; --blue2:#dbeafe; --green:#16a34a; --green2:#dcfce7;
+      --amber:#d97706; --amber2:#fef3c7; --red:#dc2626; --red2:#fee2e2; --purple:#7c3aed; --purple2:#ede9fe;
+      --shadow:0 10px 25px rgba(15,23,42,.06);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.55}
+    .wrap{max-width:1280px;margin:0 auto;padding:28px 20px 44px}
+    .hero{background:linear-gradient(135deg,#ffffff 0%,#eff6ff 64%,#fefce8 100%);border:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:var(--shadow)}
+    h1{margin:0 0 8px;font-size:30px;line-height:1.2;letter-spacing:-.02em}
+    .subtitle{margin:0;color:var(--muted);font-size:15px;max-width:980px}
+    .badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+    .badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 10px;font-size:13px;font-weight:650;border:1px solid var(--line);background:#fff;color:#334155}
+    .badge.blue{background:var(--blue2);color:#1d4ed8;border-color:#bfdbfe}.badge.green{background:var(--green2);color:#15803d;border-color:#bbf7d0}.badge.amber{background:var(--amber2);color:#b45309;border-color:#fde68a}.badge.purple{background:var(--purple2);color:#6d28d9;border-color:#ddd6fe}
+    .grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;margin-top:18px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow);min-width:0}
+    .kpi{grid-column:span 3;display:flex;flex-direction:column;gap:6px;min-height:132px}
+    .kpi .num{font-size:48px;font-weight:800;letter-spacing:-.04em;color:var(--blue);line-height:1}.kpi .label{font-size:14px;color:var(--muted)}.kpi .note{margin-top:auto;font-size:13px;color:#475569}
+    .span12{grid-column:span 12}.span7{grid-column:span 7}.span5{grid-column:span 5}.span6{grid-column:span 6}
+    h2{font-size:20px;margin:0 0 12px}.section-note{font-size:13px;color:var(--muted);margin:-4px 0 14px}.legend{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 16px;color:#475569;font-size:13px}.legend span{display:inline-flex;align-items:center;gap:6px}.dot{width:12px;height:12px;border-radius:4px;display:inline-block}.dot.sale{background:#93c5fd}.dot.peak{background:#22c55e}.dot.clear{background:#f59e0b}.dot.deadline{background:#ef4444;border-radius:50%}
+    .timeline-scroll{overflow-x:auto;padding-bottom:8px}.timeline{min-width:1060px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}.tl-head,.tl-row{display:grid;grid-template-columns:96px repeat(12,minmax(58px,1fr));align-items:stretch}.tl-head{background:#f1f5f9;color:#475569;font-size:12px;font-weight:700}.tl-head div{padding:10px 8px;border-right:1px solid var(--line);text-align:center}.tl-head div:first-child{text-align:left}.tl-row{min-height:46px;border-top:1px solid var(--line);position:relative}.country{padding:12px 10px;font-weight:750;background:#fff;border-right:1px solid var(--line);z-index:2}.month-cell{border-right:1px dashed #e5e7eb;grid-row:1;min-height:46px}.bar{height:12px;border-radius:999px;align-self:center;z-index:1;margin:0 4px;box-shadow:inset 0 0 0 1px rgba(15,23,42,.04)}.sale{background:#93c5fd}.peak{background:#22c55e}.clear{background:#f59e0b}.deadline{width:12px;height:12px;border-radius:50%;background:#ef4444;align-self:center;justify-self:center;z-index:3;box-shadow:0 0 0 4px rgba(239,68,68,.14)}
+    .m1{grid-column:2}.m2{grid-column:3}.m3{grid-column:4}.m4{grid-column:5}.m5{grid-column:6}.m6{grid-column:7}.m7{grid-column:8}.m8{grid-column:9}.m9{grid-column:10}.m10{grid-column:11}.m11{grid-column:12}.m12{grid-column:13}
+    .sale-ae{grid-column:4/12}.peak-ae{grid-column:6/11}.clear-ae{grid-column:11/13}.deadline-ae{grid-column:12}
+    .sale-au1{grid-column:2/4}.sale-au2{grid-column:12/14}.peak-au1{grid-column:2/3}.peak-au2{grid-column:13/14}.clear-au{grid-column:3/5}.deadline-au{grid-column:4}
+    .sale-ca,.sale-de,.sale-fr,.sale-gb{grid-column:6/10}.peak-ca,.peak-de,.peak-fr,.peak-gb{grid-column:7/9}.clear-ca,.clear-de,.clear-fr,.clear-gb{grid-column:9/11}.deadline-ca,.deadline-fr{grid-column:10}.deadline-de,.deadline-gb{grid-column:10}
+    .sale-es,.sale-it{grid-column:6/11}.peak-es,.peak-it{grid-column:7/10}.clear-es,.clear-it{grid-column:10/11}.deadline-es,.deadline-it{grid-column:10}
+    .sale-mx{grid-column:5/11}.peak-mx{grid-column:6/10}.clear-mx{grid-column:10/11}.deadline-mx{grid-column:10}
+    .sale-us{grid-column:5/10}.peak-us{grid-column:6/9}.clear-us{grid-column:9/11}.deadline-us{grid-column:10}
+    .priority{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.pbox{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fff}.pbox h3{font-size:16px;margin:0 0 8px}.pbox ul{margin:0;padding-left:18px}.pbox li{margin:5px 0;color:#475569}.pbox.urgent{border-color:#fed7aa;background:#fff7ed}.pbox.normal{border-color:#fde68a;background:#fffbeb}.pbox.extend{border-color:#bfdbfe;background:#eff6ff}.pbox.reverse{border-color:#ddd6fe;background:#f5f3ff}
+    table{width:100%;border-collapse:separate;border-spacing:0;min-width:980px;font-size:13px}th,td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}th{position:sticky;top:0;background:#f8fafc;color:#334155;font-size:12px;z-index:1}tr:last-child td{border-bottom:0}.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px}.tag{display:inline-block;padding:3px 8px;border-radius:999px;font-weight:700;font-size:12px;white-space:nowrap}.tag.blue{background:var(--blue2);color:#1d4ed8}.tag.green{background:var(--green2);color:#15803d}.tag.amber{background:var(--amber2);color:#b45309}.tag.purple{background:var(--purple2);color:#6d28d9}
+    .advice{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.advice .item{border-left:4px solid var(--blue);background:#f8fafc;border-radius:14px;padding:12px}.advice b{display:block;margin-bottom:4px}.advice p{margin:0;color:#475569;font-size:13px}.limits{background:#fff7ed;border-color:#fed7aa}.limits ul{margin:6px 0 0;padding-left:20px;color:#475569}.footer{margin-top:18px;color:var(--muted);font-size:12px;text-align:center}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}.kpi,.span12,.span7,.span5,.span6{grid-column:1}.priority,.advice{grid-template-columns:1fr}h1{font-size:24px}.hero{padding:20px}.kpi .num{font-size:42px}}
+  </style>
+<style id="zhcx-detail-table-export-style">
+.zhcx-detail-download-bar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+}
+.zhcx-detail-download-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #2563eb;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+.zhcx-detail-download-link svg {
+  width: 15px;
+  height: 15px;
+}
+.zhcx-detail-download-link:hover,
+.zhcx-detail-download-link:focus {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #1d4ed8;
+  outline: none;
+}
+</style></head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <h1>夏季产品跨国家售卖与清库节奏可视化报表</h1>
+      <p class="subtitle">覆盖 AE、AU、CA、DE、ES、FR、GB、IT、MX、US 共 10 个站点，按通用季节节奏整理最佳售卖期、销售高峰、建议清库期与清库截止日期。适用于泳池、户外、庭院、露营、沙滩、防晒、风扇、降温类等夏季季节品。</p>
+      <div class="badge-row">
+        <span class="badge blue">北半球：US / CA / DE / ES / FR / GB / IT / MX</span>
+        <span class="badge purple">南半球：AU</span>
+        <span class="badge amber">高温长周期：AE</span>
+        <span class="badge green">口径：月份级经营节奏建议</span>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="KPI 总览">
+      <div class="card kpi"><div class="num">10</div><div class="label">覆盖国家 / 站点</div><div class="note">来自上一轮图片国家列表</div></div>
+      <div class="card kpi"><div class="num">8</div><div class="label">北半球常规夏季站点</div><div class="note">主卖期多在 4/5月–8/9月</div></div>
+      <div class="card kpi"><div class="num">1</div><div class="label">南半球反季节站点</div><div class="note">AU：11月–次年2月主卖</div></div>
+      <div class="card kpi"><div class="num">1</div><div class="label">高温长周期站点</div><div class="note">AE：可卖到10月左右</div></div>
+    </section>
+
+    <section class="grid">
+      <div class="card span12">
+        <h2>月份甘特图：售卖期 / 高峰 / 清库 / 截止</h2>
+        <p class="section-note">蓝色表示最佳售卖期，绿色表示销售高峰，橙色表示建议清库期，红点表示建议清库截止月份。AU 跨年售卖期按 1–2月与 11–12月拆分展示。</p>
+        <div class="legend"><span><i class="dot sale"></i>最佳售卖期</span><span><i class="dot peak"></i>销售高峰</span><span><i class="dot clear"></i>建议清库期</span><span><i class="dot deadline"></i>清库截止</span></div>
+        <div class="timeline-scroll">
+          <div class="timeline" role="img" aria-label="10个国家夏季产品售卖和清库时间轴">
+            <div class="tl-head"><div>国家</div><div>1月</div><div>2月</div><div>3月</div><div>4月</div><div>5月</div><div>6月</div><div>7月</div><div>8月</div><div>9月</div><div>10月</div><div>11月</div><div>12月</div></div>
+            <div class="tl-row"><div class="country">AE</div><div class="month-cell m1"></div><div class="month-cell m2"></div><div class="month-cell m3"></div><div class="month-cell m4"></div><div class="month-cell m5"></div><div class="month-cell m6"></div><div class="month-cell m7"></div><div class="month-cell m8"></div><div class="month-cell m9"></div><div class="month-cell m10"></div><div class="month-cell m11"></div><div class="month-cell m12"></div><div class="bar sale sale-ae" title="3月–10月"></div><div class="bar peak peak-ae" title="5月–9月"></div><div class="bar clear clear-ae" title="10月–11月"></div><div class="deadline deadline-ae" title="11月底前"></div></div>
+            <div class="tl-row"><div class="country">AU</div><div class="month-cell m1"></div><div class="month-cell m2"></div><div class="month-cell m3"></div><div class="month-cell m4"></div><div class="month-cell m5"></div><div class="month-cell m6"></div><div class="month-cell m7"></div><div class="month-cell m8"></div><div class="month-cell m9"></div><div class="month-cell m10"></div><div class="month-cell m11"></div><div class="month-cell m12"></div><div class="bar sale sale-au1" title="1月–2月"></div><div class="bar sale sale-au2" title="11月–12月"></div><div class="bar peak peak-au1" title="1月"></div><div class="bar peak peak-au2" title="12月"></div><div class="bar clear clear-au" title="2月–3月"></div><div class="deadline deadline-au" title="3月底前，最晚4月中旬"></div></div>
+            <div class="tl-row"><div class="country">CA</div><div class="month-cell m1"></div><div class="month-cell m2"></div><div class="month-cell m3"></div><div class="month-cell m4"></div><div class="month-cell m5"></div><div class="month-cell m6"></div><div class="month-cell m7"></div><div class="month-cell m8"></div><div class="month-cell m9"></div><div class="month-cell m10"></div><div class="month-cell m11"></div><div class="month-cell m12"></div><div class="bar sale sale-ca"></div><div class="bar peak peak-ca"></div><div class="bar clear clear-ca"></div><div class="deadline deadline-ca"></div></div>
+            <div class="tl-row"><div class="country">DE</div><div class="month-cell m1"></div><div class="month-cell m2"></div><div class="month-cell m3"></div><div class="month-cell m4"></div><div class="month-cell m5"></div><div class="month-cell m6"></div><div class="month-cell m7"></div><div class="month-cell m8"></div><div class="month-cell m9"></div><div class="month-cell m10"></div><div class="month-cell m11"></div><div class="month-cell m12"></div><div class="bar sale sale-de"></div><div class="bar peak peak-de"></div><div class="bar clear clear-de"></div><div class="deadline deadline-de"></div></div>
+            <div class="tl-row"><div class="country">ES</div><div class="month-cell m1"></div><div class="month-cell m2"></div><div class="month-cell m3"></div><div class="month-cell m4"></div><div class="month-cell m5"></div><div class="month-cell m6"></div><div class="month-cell m7"></div><div class="month-cell m8"></div><div class="month-cell m9"></div><div class="month-cell m10"></div><div class="month-cell m11"></div><div class="month-cell m12"></div><div class="bar sale sale-es"></div><div class="bar peak peak-es"></div><div class="bar clear clear-es"></div><div class="deadline deadline-es"></div></div>
+            <div class="tl-row"><div class="country">FR</div><div class="month-cell m1"></div><div class="month-cell m2"></div><div class="month-cell m3"></div><div class="month-cell m4"></div><div class="month-cell m5"></div><div class="month-cell m6"></div><div class="month-cell m7"></div><div class="month-cell m8"></div><div class="month-cell m9"></div><div class="month-cell m10"></div><div class="month-cell m11"></div><div class="month-cell m12"></div><div class="bar sale sale-fr"></div><div class="bar peak peak-fr"></div><div class="bar clear clear-fr"></div><div class="deadline deadline-fr"></div></div>
+            <div class="tl-row"><div class="country">GB</div><div class="month-cell m1"></div><div class="month-cell m2"></div><div class="month-cell m3"></div><div class="month-cell m4"></div><div class="month-cell m5"></div><div class="month-cell m6"></div><div class="month-cell m7"></div><div class="month-cell m8"></div><div class="month-cell m9"></div><div class="month-cell m10"></div><div class="month-cell m11"></div><div class="month-cell m12"></div><div class="bar sale sale-gb"></div><div class="bar peak peak-gb"></div><div class="bar clear clear-gb"></div><div class="deadline deadline-gb"></div></div>
+            <div class="tl-row"><div class="country">IT</div><div class="month-cell m1"></div><div class="month-cell m2"></div><div class="month-cell m3"></div><div class="month-cell m4"></div><div class="month-cell m5"></div><div class="month-cell m6"></div><div class="month-cell m7"></div><div class="month-cell m8"></div><div class="month-cell m9"></div><div class="month-cell m10"></div><div class="month-cell m11"></div><div class="month-cell m12"></div><div class="bar sale sale-it"></div><div class="bar peak peak-it"></div><div class="bar clear clear-it"></div><div class="deadline deadline-it"></div></div>
+            <div class="tl-row"><div class="country">MX</div><div class="month-cell m1"></div><div class="month-cell m2"></div><div class="month-cell m3"></div><div class="month-cell m4"></div><div class="month-cell m5"></div><div class="month-cell m6"></div><div class="month-cell m7"></div><div class="month-cell m8"></div><div class="month-cell m9"></div><div class="month-cell m10"></div><div class="month-cell m11"></div><div class="month-cell m12"></div><div class="bar sale sale-mx"></div><div class="bar peak peak-mx"></div><div class="bar clear clear-mx"></div><div class="deadline deadline-mx"></div></div>
+            <div class="tl-row"><div class="country">US</div><div class="month-cell m1"></div><div class="month-cell m2"></div><div class="month-cell m3"></div><div class="month-cell m4"></div><div class="month-cell m5"></div><div class="month-cell m6"></div><div class="month-cell m7"></div><div class="month-cell m8"></div><div class="month-cell m9"></div><div class="month-cell m10"></div><div class="month-cell m11"></div><div class="month-cell m12"></div><div class="bar sale sale-us"></div><div class="bar peak peak-us"></div><div class="bar clear clear-us"></div><div class="deadline deadline-us"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card span7">
+        <h2>清库优先级分组</h2>
+        <div class="priority">
+          <div class="pbox urgent"><h3>8月中下旬启动</h3><ul><li>US、CA、DE、FR、GB</li><li>强季节品优先：泳池、沙滩、防晒、露营等</li><li>目标：9月底前完成主要清库</li></ul></div>
+          <div class="pbox normal"><h3>9月集中清库</h3><ul><li>ES、IT、MX</li><li>高温延续地区可保留部分尾货</li><li>目标：9月底前，部分品类可到10月中旬</li></ul></div>
+          <div class="pbox extend"><h3>10月后仍可清</h3><ul><li>AE</li><li>高温周期长，3–10月可售</li><li>目标：10月开始清，11月底前结束</li></ul></div>
+          <div class="pbox reverse"><h3>AU 反季节</h3><ul><li>11月–次年2月主卖</li><li>12月–1月高峰</li><li>目标：2–3月清库，3月底前完成</li></ul></div>
+        </div>
+      </div>
+
+      <div class="card span5">
+        <h2>关键操作建议</h2>
+        <div class="advice">
+          <div class="item"><b>售卖节奏</b><p>北半球站点 4/5月启动铺货与广告放量，6–7月冲峰；US 注意 7月 Prime Day 前后备货和促销节奏。</p></div>
+          <div class="item"><b>清库节奏</b><p>强季节品不要等到10月后再清；8月中下旬开始降库存、压补货、做站点间调拨或促销。</p></div>
+          <div class="item"><b>库存控制</b><p>尾季以可售天数、在途量和安全库存为准，避免旺季末新增大批量补货。</p></div>
+        </div>
+      </div>
+
+      <div class="card span12">
+        <h2>国家明细表</h2>
+        <div class="table-wrap">
+          <div class="zhcx-detail-download-bar" data-zhcx-detail-download="true"><a class="zhcx-detail-download-link" href="data:text/csv;charset=utf-8;base64,77u/5Zu95a62L+ermeeCuSzmnIDkvbPllK7ljZbml7bpl7Qs6ZSA5ZSu6auY5bOwLOW7uuiurua4heW6k+aXtumXtCzmuIXlupPmiKrmraLml6XmnJ/lu7rorq4s6IqC5aWP57G75Z6LDQpBRSDpmL/ogZTphYssM+aciOKAkzEw5pyILDXmnIjigJM55pyILDEw5pyI4oCTMTHmnIgsMTHmnIjlupXliY0s6auY5rip6ZW/5ZGo5pyfDQpBVSDmvrPlpKfliKnkuposMTHmnIjigJPmrKHlubQy5pyILDEy5pyI4oCTMeaciCwy5pyI4oCTM+aciCwz5pyI5bqV5YmN77yM5pyA5pmaNOaciOS4reaXrCzljZfljYrnkIPlj43lraPoioINCkNBIOWKoOaLv+Wkpyw15pyI4oCTOOaciCw25pyI4oCTN+aciCw45pyI5Lit5pes4oCTOeaciCw55pyI5bqV5YmNLOWMl+WNiueQg+W4uOinhA0KREUg5b635Zu9LDXmnIjigJM45pyILDbmnIjigJM35pyILDjmnIjkuK3ml6zigJM55pyILDnmnIjkuK3ml6zliY3vvIzmnIDmmZo55pyI5bqVLOWMl+WNiueQg+W4uOinhA0KRVMg6KW/54+t54mZLDXmnIjigJM55pyILDbmnIjigJM45pyILDnmnIgsOeaciOW6leWJje+8jOmDqOWIhuWTgeexu+WPr+WIsDEw5pyI5Lit5pesLOWMl+WNiueQg+WBj+mVvw0KRlIg5rOV5Zu9LDXmnIjigJM45pyILDbmnIjigJM35pyILDjmnIjkuK3ml6zigJM55pyILDnmnIjlupXliY0s5YyX5Y2K55CD5bi46KeEDQpHQiDoi7Hlm70sNeaciOKAkzjmnIgsNuaciOKAkzfmnIgsOOaciOS4reaXrOKAkznmnIgsOeaciOS4reaXrOWJje+8jOacgOaZmjnmnIjlupUs5YyX5Y2K55CD5bi46KeEDQpJVCDmhI/lpKfliKksNeaciOKAkznmnIgsNuaciOKAkzjmnIgsOeaciCw55pyI5bqV5YmN77yM5pyA5pmaMTDmnIjkuK3ml6ws5YyX5Y2K55CD5YGP6ZW/DQpNWCDloqjopb/lk6UsNOaciOKAkznmnIgsNeaciOKAkzjmnIgsOeaciCw55pyI5bqV5YmN77yM5pyA5pmaMTDmnIjkuK3ml6ws5YyX5Y2K55CD5YGP6ZW/DQpVUyDnvo7lm70sNOaciOKAkzjmnIgsNeaciOKAkzfmnIjvvIw35pyIIFByaW1lIERheSDliY3lkI4sOOaciOS4reaXrOKAkznmnIgsOeaciOW6leWJjSzljJfljYrnkIPluLjop4Q=" download="夏季产品跨国家售卖与清库节奏可视化报表_表格_1_20260723182948.csv" title="下载明细 CSV" role="button" aria-label="下载明细 CSV">
+<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+  <path d="M7 10l5 5 5-5"></path>
+  <path d="M12 15V3"></path>
+</svg></a></div><table>
+            <thead><tr><th>国家/站点</th><th>最佳售卖时间</th><th>销售高峰</th><th>建议清库时间</th><th>清库截止日期建议</th><th>节奏类型</th></tr></thead>
+            <tbody>
+              <tr><td>AE 阿联酋</td><td>3月–10月</td><td>5月–9月</td><td>10月–11月</td><td>11月底前</td><td><span class="tag amber">高温长周期</span></td></tr>
+              <tr><td>AU 澳大利亚</td><td>11月–次年2月</td><td>12月–1月</td><td>2月–3月</td><td>3月底前，最晚4月中旬</td><td><span class="tag purple">南半球反季节</span></td></tr>
+              <tr><td>CA 加拿大</td><td>5月–8月</td><td>6月–7月</td><td>8月中旬–9月</td><td>9月底前</td><td><span class="tag blue">北半球常规</span></td></tr>
+              <tr><td>DE 德国</td><td>5月–8月</td><td>6月–7月</td><td>8月中旬–9月</td><td>9月中旬前，最晚9月底</td><td><span class="tag blue">北半球常规</span></td></tr>
+              <tr><td>ES 西班牙</td><td>5月–9月</td><td>6月–8月</td><td>9月</td><td>9月底前，部分品类可到10月中旬</td><td><span class="tag green">北半球偏长</span></td></tr>
+              <tr><td>FR 法国</td><td>5月–8月</td><td>6月–7月</td><td>8月中旬–9月</td><td>9月底前</td><td><span class="tag blue">北半球常规</span></td></tr>
+              <tr><td>GB 英国</td><td>5月–8月</td><td>6月–7月</td><td>8月中旬–9月</td><td>9月中旬前，最晚9月底</td><td><span class="tag blue">北半球常规</span></td></tr>
+              <tr><td>IT 意大利</td><td>5月–9月</td><td>6月–8月</td><td>9月</td><td>9月底前，最晚10月中旬</td><td><span class="tag green">北半球偏长</span></td></tr>
+              <tr><td>MX 墨西哥</td><td>4月–9月</td><td>5月–8月</td><td>9月</td><td>9月底前，最晚10月中旬</td><td><span class="tag green">北半球偏长</span></td></tr>
+              <tr><td>US 美国</td><td>4月–8月</td><td>5月–7月，7月 Prime Day 前后</td><td>8月中旬–9月</td><td>9月底前</td><td><span class="tag blue">北半球常规</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card span12 limits">
+        <h2>口径与限制说明</h2>
+        <ul>
+          <li>本报表基于上一轮已完成的国家季节节奏分析整理，未引用实际销量、库存、广告或天气数据。</li>
+          <li>时间粒度为月份级经营建议；具体日期需结合品类属性、采购提前期、库存周转、在途库存、站点实销和促销节点调整。</li>
+          <li>适用品类：泳池、户外、庭院、露营、沙滩、防晒、风扇、降温类等夏季季节品；非强季节品可适当延后清库。</li>
+          <li>清库截止日期是“建议安全库存达成时间”，不是绝对下架或不可售日期。</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="footer">生成日期：2026-07-23 ｜ 静态自包含 HTML，可在当前页面查看</div>
+  </main>
+
+</body></html>
