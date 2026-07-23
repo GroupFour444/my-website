@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>万圣节产品跨国家售卖规划可视化报表</title>
+  <style>
+    :root{
+      --bg:#f8fafc; --card:#ffffff; --text:#1e293b; --muted:#64748b; --line:#e2e8f0;
+      --blue:#2563eb; --blue-2:#dbeafe; --cyan:#0891b2; --cyan-2:#cffafe;
+      --green:#16a34a; --green-2:#dcfce7; --amber:#d97706; --amber-2:#fef3c7;
+      --orange:#ea580c; --orange-2:#ffedd5; --red:#dc2626; --red-2:#fee2e2;
+      --purple:#7c3aed; --purple-2:#ede9fe; --slate-2:#f1f5f9;
+      --shadow:0 10px 25px rgba(15,23,42,.06);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.55}
+    .wrap{max-width:1320px;margin:0 auto;padding:28px 20px 44px}
+    .hero{background:linear-gradient(135deg,#ffffff 0%,#fff7ed 46%,#eff6ff 100%);border:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:var(--shadow);overflow:hidden;position:relative}
+    .hero:after{content:"";position:absolute;right:-90px;top:-120px;width:260px;height:260px;border-radius:50%;background:rgba(234,88,12,.12)}
+    h1{margin:0 0 8px;font-size:30px;line-height:1.18;letter-spacing:-.02em;position:relative;z-index:1}
+    .subtitle{margin:0;color:var(--muted);font-size:15px;max-width:1050px;position:relative;z-index:1}
+    .badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;position:relative;z-index:1}
+    .badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 10px;font-size:13px;font-weight:700;border:1px solid var(--line);background:#fff;color:#334155}
+    .badge.blue{background:var(--blue-2);color:#1d4ed8;border-color:#bfdbfe}.badge.green{background:var(--green-2);color:#15803d;border-color:#bbf7d0}.badge.amber{background:var(--amber-2);color:#b45309;border-color:#fde68a}.badge.purple{background:var(--purple-2);color:#6d28d9;border-color:#ddd6fe}.badge.orange{background:var(--orange-2);color:#c2410c;border-color:#fed7aa}
+    .grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;margin-top:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow);min-width:0}.span12{grid-column:span 12}.span7{grid-column:span 7}.span5{grid-column:span 5}.span6{grid-column:span 6}.span4{grid-column:span 4}.span3{grid-column:span 3}
+    .kpi{display:flex;flex-direction:column;gap:6px;min-height:126px}.kpi .num{font-size:44px;font-weight:850;letter-spacing:-.04em;line-height:1}.kpi .label{font-size:14px;color:var(--muted)}.kpi .note{margin-top:auto;font-size:13px;color:#475569}.kpi.blue .num{color:var(--blue)}.kpi.green .num{color:var(--green)}.kpi.amber .num{color:var(--amber)}.kpi.purple .num{color:var(--purple)}.kpi.orange .num{color:var(--orange)}
+    h2{font-size:20px;margin:0 0 12px}.section-note{font-size:13px;color:var(--muted);margin:-4px 0 14px}.legend{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 16px;color:#475569;font-size:13px}.legend span{display:inline-flex;align-items:center;gap:6px}.dot{width:12px;height:12px;border-radius:4px;display:inline-block}.dot.stock{background:#93c5fd}.dot.arrive{background:#67e8f9}.dot.optimize{background:#a7f3d0}.dot.sell{background:#fbbf24}.dot.clear{background:#fb923c}.dot.deadline{background:#ef4444;border-radius:50%}
+    .timeline-scroll{overflow-x:auto;padding-bottom:8px}.timeline{min-width:1160px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}.tl-head,.tl-row{display:grid;grid-template-columns:96px repeat(8,minmax(94px,1fr));align-items:stretch}.tl-head{background:#f1f5f9;color:#475569;font-size:12px;font-weight:800}.tl-head div{padding:10px 8px;border-right:1px solid var(--line);text-align:center}.tl-head div:first-child{text-align:left}.tl-row{min-height:54px;border-top:1px solid var(--line);position:relative}.country{padding:14px 10px;font-weight:800;background:#fff;border-right:1px solid var(--line);z-index:2}.month-cell{border-right:1px dashed #e5e7eb;grid-row:1;min-height:54px}.bar{height:9px;border-radius:999px;z-index:1;margin:0 5px;box-shadow:inset 0 0 0 1px rgba(15,23,42,.04)}.bar.stock{background:#93c5fd;align-self:start;margin-top:8px}.bar.arrive{background:#67e8f9;align-self:start;margin-top:19px}.bar.optimize{background:#86efac;align-self:center}.bar.sell{background:#fbbf24;align-self:end;margin-bottom:19px}.bar.clear{background:#fb923c;align-self:end;margin-bottom:8px}.deadline{width:12px;height:12px;border-radius:50%;background:#ef4444;align-self:center;justify-self:center;z-index:3;box-shadow:0 0 0 4px rgba(239,68,68,.14)}
+    .apr{grid-column:2}.may{grid-column:3}.jun{grid-column:4}.jul{grid-column:5}.aug{grid-column:6}.sep{grid-column:7}.oct{grid-column:8}.nov{grid-column:9}
+    .stock-main{grid-column:2/5}.stock-us{grid-column:2/6}.stock-au{grid-column:3/6}.arrive-early{grid-column:6/7}.arrive-mid{grid-column:6/8}.opt-early{grid-column:6/8}.opt-late{grid-column:6/9}.opt-au{grid-column:7/9}.sell-main{grid-column:7/9}.sell-late{grid-column:7/10}.sell-au{grid-column:7/9}.clear-main{grid-column:8/10}.clear-mx{grid-column:8/10}.deadline-910{grid-column:7}.deadline-915{grid-column:7}.deadline-920{grid-column:7}.deadline-1110{grid-column:9}.deadline-1115{grid-column:9}.deadline-1120{grid-column:9}
+    .strategy{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.sbox{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fff;min-height:152px}.sbox h3{font-size:16px;margin:0 0 8px}.sbox .sites{font-size:22px;font-weight:850;margin:0 0 8px}.sbox p,.sbox li{font-size:13px;color:#475569;margin:0}.sbox ul{margin:8px 0 0;padding-left:18px}.sbox.focus{background:#eff6ff;border-color:#bfdbfe}.sbox.steady{background:#f0fdf4;border-color:#bbf7d0}.sbox.extend{background:#fff7ed;border-color:#fed7aa}.sbox.trial{background:#f5f3ff;border-color:#ddd6fe}
+    .roadmap{display:grid;grid-template-columns:repeat(8,minmax(118px,1fr));gap:10px;overflow-x:auto;padding-bottom:4px}.step{border:1px solid var(--line);border-radius:16px;padding:12px;background:#fff;min-height:128px}.step .time{font-weight:850;color:#334155;font-size:13px}.step .title{font-weight:850;font-size:15px;margin:8px 0 4px}.step .desc{font-size:12px;color:#64748b;margin:0}.step.orange{background:#fff7ed;border-color:#fed7aa}.step.blue{background:#eff6ff;border-color:#bfdbfe}.step.green{background:#f0fdf4;border-color:#bbf7d0}.step.amber{background:#fffbeb;border-color:#fde68a}.step.red{background:#fff1f2;border-color:#fecdd3}
+    table{width:100%;border-collapse:separate;border-spacing:0;min-width:1160px;font-size:13px}th,td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}th{position:sticky;top:0;background:#f8fafc;color:#334155;font-size:12px;z-index:1}tr:last-child td{border-bottom:0}.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px}.tag{display:inline-block;padding:3px 8px;border-radius:999px;font-weight:800;font-size:12px;white-space:nowrap}.tag.blue{background:var(--blue-2);color:#1d4ed8}.tag.green{background:var(--green-2);color:#15803d}.tag.orange{background:var(--orange-2);color:#c2410c}.tag.purple{background:var(--purple-2);color:#6d28d9}.tag.red{background:var(--red-2);color:#b91c1c}
+    .tips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.tip{border-left:4px solid var(--orange);background:#f8fafc;border-radius:14px;padding:12px}.tip b{display:block;margin-bottom:4px}.tip p{margin:0;color:#475569;font-size:13px}.limits{background:#fff7ed;border-color:#fed7aa}.limits ul{margin:6px 0 0;padding-left:20px;color:#475569}.footer{margin-top:18px;color:var(--muted);font-size:12px;text-align:center}
+    @media (max-width:960px){.grid{grid-template-columns:1fr}.span12,.span7,.span5,.span6,.span4,.span3{grid-column:1}.strategy,.tips{grid-template-columns:1fr}h1{font-size:24px}.hero{padding:20px}.kpi .num{font-size:38px}.roadmap{grid-template-columns:repeat(8,minmax(160px,1fr))}}
+  </style>
+<style id="zhcx-detail-table-export-style">
+.zhcx-detail-download-bar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+}
+.zhcx-detail-download-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #2563eb;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+.zhcx-detail-download-link svg {
+  width: 15px;
+  height: 15px;
+}
+.zhcx-detail-download-link:hover,
+.zhcx-detail-download-link:focus {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #1d4ed8;
+  outline: none;
+}
+</style></head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <h1>万圣节产品跨国家售卖规划可视化报表</h1>
+      <p class="subtitle">基于上一轮已完成规划，将 AU、CA、DE、ES、FR、GB、IT、MX、US 的万圣节产品备货、到货、销售优化、最佳售卖与清库节奏转为可视化排期。固定节点为 10月31日，适用于服饰、装饰、派对用品、庭院布置、南瓜/骷髅/鬼怪主题、糖果篮、宠物服饰等强季节产品。</p>
+      <div class="badge-row">
+        <span class="badge orange">固定节日节点：10月31日万圣节</span>
+        <span class="badge blue">重点投入：US / CA / GB / DE</span>
+        <span class="badge green">稳健投入：FR / IT / ES</span>
+        <span class="badge amber">可延伸：MX</span>
+        <span class="badge purple">试量：AU</span>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="KPI 总览">
+      <div class="card kpi orange span3"><div class="num">9</div><div class="label">覆盖国家 / 站点</div><div class="note">图片中勾选的 AU、CA、DE、ES、FR、GB、IT、MX、US</div></div>
+      <div class="card kpi blue span3"><div class="num">4</div><div class="label">重点投入站点</div><div class="note">US、CA、GB、DE：优先保障主批次到货和广告放量</div></div>
+      <div class="card kpi green span3"><div class="num">3</div><div class="label">稳健投入站点</div><div class="note">FR、IT、ES：控制备货量，偏稳健推进</div></div>
+      <div class="card kpi amber span3"><div class="num">1+1</div><div class="label">延伸 / 试量站点</div><div class="note">MX 可衔接亡灵节；AU 建议轻量试量</div></div>
+    </section>
+
+    <section class="grid">
+      <div class="card span12">
+        <h2>月份甘特图：备货、到货、优化、售卖、清库与截止节点</h2>
+        <p class="section-note">横轴按 4月–11月展示。蓝色为备货，青色为最佳到货，绿色为销售优化，黄色为最佳售卖，橙色为清库，红点标记关键截止节点。红点集中在 9月为截止到货，11月为清库截止。</p>
+        <div class="legend"><span><i class="dot stock"></i>备货</span><span><i class="dot arrive"></i>最佳到货</span><span><i class="dot optimize"></i>销售优化</span><span><i class="dot sell"></i>最佳售卖</span><span><i class="dot clear"></i>清库</span><span><i class="dot deadline"></i>截止节点</span></div>
+        <div class="timeline-scroll">
+          <div class="timeline" role="img" aria-label="万圣节产品跨国家倒排时间轴">
+            <div class="tl-head"><div>国家</div><div>4月</div><div>5月</div><div>6月</div><div>7月</div><div>8月</div><div>9月</div><div>10月</div><div>11月</div></div>
+            <div class="tl-row"><div class="country">US</div><div class="month-cell apr"></div><div class="month-cell may"></div><div class="month-cell jun"></div><div class="month-cell jul"></div><div class="month-cell aug"></div><div class="month-cell sep"></div><div class="month-cell oct"></div><div class="month-cell nov"></div><div class="bar stock stock-us" title="4月–6月主批次，7月小批量补货"></div><div class="bar arrive arrive-early" title="8月上旬–8月下旬"></div><div class="deadline deadline-915" title="截止到货：9月15日前"></div><div class="bar optimize opt-early" title="8月中旬–9月底"></div><div class="bar sell sell-main" title="9月中旬–10月25日"></div><div class="bar clear clear-main" title="10月20日–11月上旬"></div><div class="deadline deadline-1110" title="清库截止：11月10日前"></div></div>
+            <div class="tl-row"><div class="country">CA</div><div class="month-cell apr"></div><div class="month-cell may"></div><div class="month-cell jun"></div><div class="month-cell jul"></div><div class="month-cell aug"></div><div class="month-cell sep"></div><div class="month-cell oct"></div><div class="month-cell nov"></div><div class="bar stock stock-main" title="4月–6月"></div><div class="bar arrive arrive-early" title="8月上旬–8月底"></div><div class="deadline deadline-915" title="截止到货：9月15日前"></div><div class="bar optimize opt-early" title="8月中旬–9月底"></div><div class="bar sell sell-main" title="9月中旬–10月25日"></div><div class="bar clear clear-main" title="10月20日–11月上旬"></div><div class="deadline deadline-1110" title="清库截止：11月10日前"></div></div>
+            <div class="tl-row"><div class="country">GB</div><div class="month-cell apr"></div><div class="month-cell may"></div><div class="month-cell jun"></div><div class="month-cell jul"></div><div class="month-cell aug"></div><div class="month-cell sep"></div><div class="month-cell oct"></div><div class="month-cell nov"></div><div class="bar stock stock-main" title="4月–6月"></div><div class="bar arrive arrive-early" title="8月上旬–8月底"></div><div class="deadline deadline-910" title="截止到货：9月10日前"></div><div class="bar optimize opt-early" title="8月中旬–9月下旬"></div><div class="bar sell sell-main" title="9月中旬–10月25日"></div><div class="bar clear clear-main" title="10月20日–11月上旬"></div><div class="deadline deadline-1110" title="清库截止：11月10日前"></div></div>
+            <div class="tl-row"><div class="country">DE</div><div class="month-cell apr"></div><div class="month-cell may"></div><div class="month-cell jun"></div><div class="month-cell jul"></div><div class="month-cell aug"></div><div class="month-cell sep"></div><div class="month-cell oct"></div><div class="month-cell nov"></div><div class="bar stock stock-main" title="4月–6月"></div><div class="bar arrive arrive-early" title="8月上旬–8月底"></div><div class="deadline deadline-910" title="截止到货：9月10日前"></div><div class="bar optimize opt-early" title="8月中旬–9月下旬"></div><div class="bar sell sell-main" title="9月中旬–10月25日"></div><div class="bar clear clear-main" title="10月20日–11月上旬"></div><div class="deadline deadline-1110" title="清库截止：11月10日前"></div></div>
+            <div class="tl-row"><div class="country">FR</div><div class="month-cell apr"></div><div class="month-cell may"></div><div class="month-cell jun"></div><div class="month-cell jul"></div><div class="month-cell aug"></div><div class="month-cell sep"></div><div class="month-cell oct"></div><div class="month-cell nov"></div><div class="bar stock stock-main" title="4月–6月"></div><div class="bar arrive arrive-mid" title="8月中旬–9月上旬"></div><div class="deadline deadline-915" title="截止到货：9月15日前"></div><div class="bar optimize opt-late" title="8月下旬–10月上旬"></div><div class="bar sell sell-main" title="9月下旬–10月25日"></div><div class="bar clear clear-main" title="10月20日–11月上旬"></div><div class="deadline deadline-1110" title="清库截止：11月10日前"></div></div>
+            <div class="tl-row"><div class="country">IT</div><div class="month-cell apr"></div><div class="month-cell may"></div><div class="month-cell jun"></div><div class="month-cell jul"></div><div class="month-cell aug"></div><div class="month-cell sep"></div><div class="month-cell oct"></div><div class="month-cell nov"></div><div class="bar stock stock-main" title="4月–6月"></div><div class="bar arrive arrive-mid" title="8月中旬–9月上旬"></div><div class="deadline deadline-915" title="截止到货：9月15日前"></div><div class="bar optimize opt-late" title="8月下旬–10月上旬"></div><div class="bar sell sell-main" title="9月下旬–10月25日"></div><div class="bar clear clear-main" title="10月20日–11月上旬"></div><div class="deadline deadline-1110" title="清库截止：11月10日前"></div></div>
+            <div class="tl-row"><div class="country">ES</div><div class="month-cell apr"></div><div class="month-cell may"></div><div class="month-cell jun"></div><div class="month-cell jul"></div><div class="month-cell aug"></div><div class="month-cell sep"></div><div class="month-cell oct"></div><div class="month-cell nov"></div><div class="bar stock stock-main" title="4月–6月"></div><div class="bar arrive arrive-mid" title="8月中旬–9月上旬"></div><div class="deadline deadline-915" title="截止到货：9月15日前"></div><div class="bar optimize opt-late" title="8月下旬–10月上旬"></div><div class="bar sell sell-main" title="9月下旬–10月25日"></div><div class="bar clear clear-main" title="10月20日–11月上旬"></div><div class="deadline deadline-1110" title="清库截止：11月10日前"></div></div>
+            <div class="tl-row"><div class="country">MX</div><div class="month-cell apr"></div><div class="month-cell may"></div><div class="month-cell jun"></div><div class="month-cell jul"></div><div class="month-cell aug"></div><div class="month-cell sep"></div><div class="month-cell oct"></div><div class="month-cell nov"></div><div class="bar stock stock-main" title="4月–6月，可预留少量延伸款"></div><div class="bar arrive arrive-mid" title="8月中旬–9月上旬"></div><div class="deadline deadline-920" title="截止到货：9月20日前"></div><div class="bar optimize opt-late" title="8月下旬–10月中旬"></div><div class="bar sell sell-late" title="9月下旬–11月2日前后"></div><div class="bar clear clear-mx" title="10月底–11月中旬"></div><div class="deadline deadline-1120" title="清库截止：11月20日前"></div></div>
+            <div class="tl-row"><div class="country">AU</div><div class="month-cell apr"></div><div class="month-cell may"></div><div class="month-cell jun"></div><div class="month-cell jul"></div><div class="month-cell aug"></div><div class="month-cell sep"></div><div class="month-cell oct"></div><div class="month-cell nov"></div><div class="bar stock stock-au" title="5月–7月，建议轻量备货"></div><div class="bar arrive arrive-mid" title="8月下旬–9月中旬"></div><div class="deadline deadline-920" title="截止到货：9月20日前"></div><div class="bar optimize opt-au" title="9月上旬–10月中旬"></div><div class="bar sell sell-au" title="9月下旬–10月31日"></div><div class="bar clear clear-main" title="10月25日–11月中旬"></div><div class="deadline deadline-1115" title="清库截止：11月15日前"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card span12">
+        <h2>站点分组策略</h2>
+        <div class="strategy">
+          <div class="sbox focus"><h3>重点投入站点</h3><div class="sites">US / CA / GB / DE</div><ul><li>主批次 8月底前到仓</li><li>9月中旬前完成页面与广告预热</li><li>10月中下旬开始控库存</li></ul></div>
+          <div class="sbox steady"><h3>稳健投入站点</h3><div class="sites">FR / IT / ES</div><ul><li>控制备货量，避免节后积压</li><li>适合装饰、派对、小件服饰等轻量季节款</li><li>11月10日前完成主要清库</li></ul></div>
+          <div class="sbox extend"><h3>可延伸销售站点</h3><div class="sites">MX</div><ul><li>可衔接 Día de los Muertos / 亡灵节</li><li>部分骷髅、装饰、派对类可卖到11月初</li><li>11月20日前结束清库</li></ul></div>
+          <div class="sbox trial"><h3>低风险试量站点</h3><div class="sites">AU</div><ul><li>需求弱于美加英，建议轻量备货</li><li>9月下旬–10月31日集中销售</li><li>不建议节后持有大库存</li></ul></div>
+        </div>
+      </div>
+
+      <div class="card span12">
+        <h2>万圣节倒排核心时间线</h2>
+        <div class="roadmap">
+          <div class="step blue"><div class="time">4月–5月</div><div class="title">产品确认 / 下单</div><p class="desc">确认款式、包装、认证、关键词和图片素材。</p></div>
+          <div class="step blue"><div class="time">5月–6月</div><div class="title">主批次备货</div><p class="desc">主力 SKU 下单生产，强季节款不建议拖到7月后。</p></div>
+          <div class="step orange"><div class="time">7月–8月</div><div class="title">发货入仓</div><p class="desc">按站点倒排头程，到仓优先保障 US、CA、GB、DE。</p></div>
+          <div class="step green"><div class="time">8月上旬–9月上旬</div><div class="title">最佳到货</div><p class="desc">完成 FBA 上架、页面检查、库存可售。</p></div>
+          <div class="step green"><div class="time">8月中旬–10月上旬</div><div class="title">销售优化</div><p class="desc">优化标题、主图、五点、A+、Coupon 和广告词。</p></div>
+          <div class="step amber"><div class="time">9月中旬–10月25日</div><div class="title">销售高峰</div><p class="desc">放量投放、提升折扣、提高转化，冲刺节前需求。</p></div>
+          <div class="step orange"><div class="time">10月20日前后</div><div class="title">清库启动</div><p class="desc">降价、Coupon、捆绑促销、广告控预算。</p></div>
+          <div class="step red"><div class="time">11月10日前后</div><div class="title">清库截止</div><p class="desc">大多数站点结束清库；MX/AU 可略延后。</p></div>
+        </div>
+      </div>
+
+      <div class="card span12">
+        <h2>国家明细表</h2>
+        <div class="table-wrap">
+          <div class="zhcx-detail-download-bar" data-zhcx-detail-download="true"><a class="zhcx-detail-download-link" href="data:text/csv;charset=utf-8;base64,77u/5Zu95a62L+ermeeCuSzlpIfotKfml7bpl7Qs5pyA5L2z5Yiw6LSn5pe26Ze0LOaIquatouWIsOi0p+aXtumXtCzplIDllK7kvJjljJbml7bpl7Qs5pyA5L2z5ZSu5Y2W5pe26Ze0LOa4heW6k+aXtumXtCzmuIXlupPmiKrmraLml6XmnJ8s562W55Wl5YiG57uEDQpVUyDnvo7lm70sNOaciOKAkzbmnIjlrozmiJDkuLvmibnmrKHvvIw35pyI5bCP5om56YeP6KGl6LSnLDjmnIjkuIrml6zigJM45pyI5LiL5pesLDnmnIgxNeaXpeWJjSw45pyI5Lit5pes4oCTOeaciOW6lSw55pyI5Lit5pes4oCTMTDmnIgyNeaXpSwxMOaciDIw5pel4oCTMTHmnIjkuIrml6wsMTHmnIgxMOaXpeWJjSzph43ngrnmipXlhaUNCkNBIOWKoOaLv+Wkpyw05pyI4oCTNuaciCw45pyI5LiK5pes4oCTOOaciOW6lSw55pyIMTXml6XliY0sOOaciOS4reaXrOKAkznmnIjlupUsOeaciOS4reaXrOKAkzEw5pyIMjXml6UsMTDmnIgyMOaXpeKAkzEx5pyI5LiK5pesLDEx5pyIMTDml6XliY0s6YeN54K55oqV5YWlDQpHQiDoi7Hlm70sNOaciOKAkzbmnIgsOOaciOS4iuaXrOKAkzjmnIjlupUsOeaciDEw5pel5YmNLDjmnIjkuK3ml6zigJM55pyI5LiL5pesLDnmnIjkuK3ml6zigJMxMOaciDI15pelLDEw5pyIMjDml6XigJMxMeaciOS4iuaXrCwxMeaciDEw5pel5YmNLOmHjeeCueaKleWFpQ0KREUg5b635Zu9LDTmnIjigJM25pyILDjmnIjkuIrml6zigJM45pyI5bqVLDnmnIgxMOaXpeWJjSw45pyI5Lit5pes4oCTOeaciOS4i+aXrCw55pyI5Lit5pes4oCTMTDmnIgyNeaXpSwxMOaciDIw5pel4oCTMTHmnIjkuIrml6wsMTHmnIgxMOaXpeWJjSzph43ngrnmipXlhaUNCkZSIOazleWbvSw05pyI4oCTNuaciCw45pyI5Lit5pes4oCTOeaciOS4iuaXrCw55pyIMTXml6XliY0sOOaciOS4i+aXrOKAkzEw5pyI5LiK5pesLDnmnIjkuIvml6zigJMxMOaciDI15pelLDEw5pyIMjDml6XigJMxMeaciOS4iuaXrCwxMeaciDEw5pel5YmNLOeos+WBpeaKleWFpQ0KSVQg5oSP5aSn5YipLDTmnIjigJM25pyILDjmnIjkuK3ml6zigJM55pyI5LiK5pesLDnmnIgxNeaXpeWJjSw45pyI5LiL5pes4oCTMTDmnIjkuIrml6wsOeaciOS4i+aXrOKAkzEw5pyIMjXml6UsMTDmnIgyMOaXpeKAkzEx5pyI5LiK5pesLDEx5pyIMTDml6XliY0s56iz5YGl5oqV5YWlDQpFUyDopb/nj63niZksNOaciOKAkzbmnIgsOOaciOS4reaXrOKAkznmnIjkuIrml6wsOeaciDE15pel5YmNLDjmnIjkuIvml6zigJMxMOaciOS4iuaXrCw55pyI5LiL5pes4oCTMTDmnIgyNeaXpSwxMOaciDIw5pel4oCTMTHmnIjkuIrml6wsMTHmnIgxMOaXpeWJjSznqLPlgaXmipXlhaUNCk1YIOWiqOilv+WTpSw05pyI4oCTNuaciO+8jOWPr+mihOeVmeWwkemHj+W7tuS8uOasviw45pyI5Lit5pes4oCTOeaciOS4iuaXrCw55pyIMjDml6XliY0sOOaciOS4i+aXrOKAkzEw5pyI5Lit5pesLDnmnIjkuIvml6zigJMxMeaciDLml6XliY3lkI4sMTDmnIjlupXigJMxMeaciOS4reaXrCwxMeaciDIw5pel5YmNLOWPr+W7tuS8uA0KQVUg5r6z5aSn5Yip5LqaLDXmnIjigJM35pyI77yM5bu66K6u6L276YeP5aSH6LSnLDjmnIjkuIvml6zigJM55pyI5Lit5pesLDnmnIgyMOaXpeWJjSw55pyI5LiK5pes4oCTMTDmnIjkuK3ml6wsOeaciOS4i+aXrOKAkzEw5pyIMzHml6UsMTDmnIgyNeaXpeKAkzEx5pyI5Lit5pesLDEx5pyIMTXml6XliY0s5L2O6aOO6Zmp6K+V6YeP" download="万圣节产品跨国家售卖规划可视化报表_表格_1_20260723192254.csv" title="下载明细 CSV" role="button" aria-label="下载明细 CSV">
+<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+  <path d="M7 10l5 5 5-5"></path>
+  <path d="M12 15V3"></path>
+</svg></a></div><table>
+            <thead><tr><th>国家/站点</th><th>备货时间</th><th>最佳到货时间</th><th>截止到货时间</th><th>销售优化时间</th><th>最佳售卖时间</th><th>清库时间</th><th>清库截止日期</th><th>策略分组</th></tr></thead>
+            <tbody>
+              <tr><td>US 美国</td><td>4月–6月完成主批次，7月小批量补货</td><td>8月上旬–8月下旬</td><td>9月15日前</td><td>8月中旬–9月底</td><td>9月中旬–10月25日</td><td>10月20日–11月上旬</td><td>11月10日前</td><td><span class="tag blue">重点投入</span></td></tr>
+              <tr><td>CA 加拿大</td><td>4月–6月</td><td>8月上旬–8月底</td><td>9月15日前</td><td>8月中旬–9月底</td><td>9月中旬–10月25日</td><td>10月20日–11月上旬</td><td>11月10日前</td><td><span class="tag blue">重点投入</span></td></tr>
+              <tr><td>GB 英国</td><td>4月–6月</td><td>8月上旬–8月底</td><td>9月10日前</td><td>8月中旬–9月下旬</td><td>9月中旬–10月25日</td><td>10月20日–11月上旬</td><td>11月10日前</td><td><span class="tag blue">重点投入</span></td></tr>
+              <tr><td>DE 德国</td><td>4月–6月</td><td>8月上旬–8月底</td><td>9月10日前</td><td>8月中旬–9月下旬</td><td>9月中旬–10月25日</td><td>10月20日–11月上旬</td><td>11月10日前</td><td><span class="tag blue">重点投入</span></td></tr>
+              <tr><td>FR 法国</td><td>4月–6月</td><td>8月中旬–9月上旬</td><td>9月15日前</td><td>8月下旬–10月上旬</td><td>9月下旬–10月25日</td><td>10月20日–11月上旬</td><td>11月10日前</td><td><span class="tag green">稳健投入</span></td></tr>
+              <tr><td>IT 意大利</td><td>4月–6月</td><td>8月中旬–9月上旬</td><td>9月15日前</td><td>8月下旬–10月上旬</td><td>9月下旬–10月25日</td><td>10月20日–11月上旬</td><td>11月10日前</td><td><span class="tag green">稳健投入</span></td></tr>
+              <tr><td>ES 西班牙</td><td>4月–6月</td><td>8月中旬–9月上旬</td><td>9月15日前</td><td>8月下旬–10月上旬</td><td>9月下旬–10月25日</td><td>10月20日–11月上旬</td><td>11月10日前</td><td><span class="tag green">稳健投入</span></td></tr>
+              <tr><td>MX 墨西哥</td><td>4月–6月，可预留少量延伸款</td><td>8月中旬–9月上旬</td><td>9月20日前</td><td>8月下旬–10月中旬</td><td>9月下旬–11月2日前后</td><td>10月底–11月中旬</td><td>11月20日前</td><td><span class="tag orange">可延伸</span></td></tr>
+              <tr><td>AU 澳大利亚</td><td>5月–7月，建议轻量备货</td><td>8月下旬–9月中旬</td><td>9月20日前</td><td>9月上旬–10月中旬</td><td>9月下旬–10月31日</td><td>10月25日–11月中旬</td><td>11月15日前</td><td><span class="tag purple">低风险试量</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card span6">
+        <h2>操作提醒</h2>
+        <div class="tips">
+          <div class="tip"><b>强季节款不要晚到仓</b><p>9月底后才入仓会明显压缩核心销售窗口，重点站点建议 8月底前到仓。</p></div>
+          <div class="tip"><b>10月20日后切换清库逻辑</b><p>节前最后一周以降库存为主，除常青派对装饰类外，不建议继续旺季式补货。</p></div>
+          <div class="tip"><b>广告节奏前置</b><p>8月中下旬开始跑词，9月中旬后集中放量，10月下旬控制预算与库存风险。</p></div>
+        </div>
+      </div>
+
+      <div class="card span6 limits">
+        <h2>口径与限制说明</h2>
+        <ul>
+          <li>本报表基于上一轮已完成的万圣节规划转换，未引用实际销量、库存、广告或天气数据。</li>
+          <li>时间以 10月31日万圣节为固定节点，按月份/日期级经营建议展示。</li>
+          <li>实际执行需结合产品生产周期、头程方式、FBA 入仓预约、历史销量、当前库存、在途和站点实销调整。</li>
+          <li>清库截止日期是建议完成主要库存消化的安全节点，不代表绝对下架或不可售日期。</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="footer">生成日期：2026-07-23 ｜ 静态自包含 HTML，可在当前页面查看</div>
+  </main>
+
+</body></html>
