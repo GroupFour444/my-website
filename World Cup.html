@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>世界杯标签 FBA Listing 赛后售卖机会可视化报表</title>
+<style>
+:root{--bg:#f8fafc;--card:#ffffff;--text:#1e293b;--muted:#64748b;--line:#e2e8f0;--blue:#2563eb;--blue2:#dbeafe;--green:#16a34a;--green2:#dcfce7;--amber:#d97706;--amber2:#fef3c7;--red:#dc2626;--red2:#fee2e2;--purple:#7c3aed;--purple2:#ede9fe;}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans SC","PingFang SC",sans-serif;line-height:1.55}.wrap{max-width:1360px;margin:0 auto;padding:28px 20px 48px}.hero{background:linear-gradient(135deg,#fff 0%,#eff6ff 100%);border:1px solid var(--line);border-radius:22px;padding:26px;box-shadow:0 10px 28px rgba(15,23,42,.06)}h1{font-size:28px;line-height:1.25;margin:0 0 10px}h2{font-size:20px;margin:0 0 14px}h3{font-size:16px;margin:0 0 10px}.sub{font-size:13px;color:var(--muted)}.grid{display:grid;gap:14px}.kpis{grid-template-columns:repeat(5,minmax(0,1fr));margin-top:18px}.two{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)}.three{grid-template-columns:repeat(3,minmax(0,1fr))}.section{margin-top:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 6px 18px rgba(15,23,42,.04);min-width:0}.kpi .label{font-size:13px;color:var(--muted)}.kpi .val{font-size:30px;font-weight:800;letter-spacing:-.02em;margin-top:4px}.kpi .note{font-size:12px;color:var(--muted);margin-top:4px}.badge{display:inline-flex;align-items:center;border-radius:999px;padding:3px 9px;font-size:12px;font-weight:700;white-space:nowrap}.b-green{background:var(--green2);color:#166534}.b-amber{background:var(--amber2);color:#92400e}.b-red{background:var(--red2);color:#991b1b}.b-blue{background:var(--blue2);color:#1d4ed8}.b-purple{background:var(--purple2);color:#5b21b6}.callout{border-left:4px solid var(--blue);background:#f8fbff;border-radius:14px;padding:14px 16px}.callout.ok{border-left-color:var(--green);background:#f4fff7}.callout.warn{border-left-color:var(--amber);background:#fffaf0}.callout.risk{border-left-color:var(--red);background:#fff7f7}.bars{display:grid;gap:12px}.barrow{display:grid;grid-template-columns:165px 1fr 90px;gap:10px;align-items:center;font-size:13px}.bar{height:14px;background:#edf2f7;border-radius:999px;overflow:hidden}.bar span{display:block;height:100%;border-radius:999px}.legend{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:12px;margin-top:10px}.dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:5px}.svgbox{width:100%;overflow-x:auto}.small{font-size:12px;color:var(--muted)}ul{margin:8px 0 0 20px;padding:0}li{margin:5px 0}.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:#fff}table{border-collapse:collapse;width:100%;min-width:1380px}th,td{border-bottom:1px solid var(--line);padding:10px 11px;text-align:left;font-size:12.5px;vertical-align:top}th{position:sticky;top:0;background:#f8fafc;color:#334155;font-size:12px;z-index:1}td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}.rank{font-weight:800;color:#475569}.msku{font-weight:700}.action{min-width:220px}.evidence{min-width:250px}.footer{font-size:12px;color:var(--muted);margin-top:16px}.pill{display:inline-block;padding:2px 7px;border:1px solid var(--line);border-radius:999px;background:#fff;color:#475569;font-size:12px;margin:2px 4px 2px 0}.nowrap{white-space:nowrap}@media (max-width:1100px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.two,.three{grid-template-columns:1fr}}@media (max-width:640px){.wrap{padding:18px 12px}h1{font-size:22px}.kpis{grid-template-columns:1fr}.barrow{grid-template-columns:130px 1fr 62px}.kpi .val{font-size:26px}}
+</style>
+<style id="zhcx-detail-table-export-style">
+.zhcx-detail-download-bar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+}
+.zhcx-detail-download-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #2563eb;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+.zhcx-detail-download-link svg {
+  width: 15px;
+  height: 15px;
+}
+.zhcx-detail-download-link:hover,
+.zhcx-detail-download-link:focus {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #1d4ed8;
+  outline: none;
+}
+</style></head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <h1>世界杯标签 FBA Listing 赛后售卖机会可视化报表</h1>
+    <div class="sub">对象：E4组命中“当前 FBA 库存≥1 + 世界杯节日/产品标签 + 已备货”的 24 条 FBA Listing。库存快照：2026-07-01；近30天销量截至：2026-07-24；外部关键词趋势多数最新至 2026年6月。</div>
+    <div class="grid kpis">
+      <div class="card kpi"><div class="label">命中 Listing</div><div class="val">24</div><div class="note">全部纳入关注清单</div></div>
+      <div class="card kpi"><div class="label">当前 FBA 库存</div><div class="val">545</div><div class="note">全链路库存约 659 件</div></div>
+      <div class="card kpi"><div class="label">近30天销量</div><div class="val">162</div><div class="note">15 条仍有销量</div></div>
+      <div class="card kpi"><div class="label">继续售卖</div><div class="val" style="color:var(--green)">7</div><div class="note">可去世界杯化承接</div></div>
+      <div class="card kpi"><div class="label">清库优先</div><div class="val" style="color:var(--red)">10</div><div class="note">强赛事/无动销/证据弱</div></div>
+    </div>
+  </section>
+
+  <section class="section grid two">
+    <div class="card">
+      <h2>核心结论</h2>
+      <div class="callout ok"><b>不建议全部清仓。</b>外部数据表明 World Cup 词强事件驱动，但 soccer party、soccer birthday、soccer rug、wine stopper 等通用场景仍有需求；应按“能否去世界杯化 + 内部动销 + 外部需求 + 库存压力”分层处理。</div>
+      <div class="callout warn" style="margin-top:10px"><b>继续售卖/观察的核心方向：</b>生日/足球派对桌布、足球地毯、钥匙扣小礼品、酒吧酒具。关键词从 World Cup 转向 soccer party、birthday、game day、sports bar、boys room、home bar。</div>
+      <div class="callout risk" style="margin-top:10px"><b>清库优先的风险方向：</b>强世界杯属性桌旗、拉花、眼镜/拍照道具、无评论且近30天无动销款；MX 有在途风险的款要先复核能否拦截或延后。</div>
+    </div>
+    <div class="card">
+      <h2>调整后分层结构</h2>
+      <div class="bars">
+        <div class="barrow"><span><span class="badge b-green">继续售卖</span></span><div class="bar"><span style="width:29.2%;background:var(--green)"></span></div><b>7 条</b></div>
+        <div class="barrow"><span><span class="badge b-amber">观察优化</span></span><div class="bar"><span style="width:29.2%;background:var(--amber)"></span></div><b>7 条</b></div>
+        <div class="barrow"><span><span class="badge b-red">清库优先</span></span><div class="bar"><span style="width:41.6%;background:var(--red)"></span></div><b>10 条</b></div>
+      </div>
+      <div class="svgbox" style="margin-top:14px">
+        <svg viewBox="0 0 540 210" width="100%" height="210" role="img" aria-label="分层数量与库存压力示意">
+          <rect width="540" height="210" fill="#fff"></rect>
+          <text x="18" y="22" font-size="13" font-weight="700" fill="#334155">分层数量占比</text>
+          <circle cx="115" cy="110" r="74" fill="#f1f5f9"></circle>
+          <path d="M115 110 L115 36 A74 74 0 0 1 183 139 Z" fill="#16a34a"><title>继续售卖 7条</title></path>
+          <path d="M115 110 L183 139 A74 74 0 0 1 49 148 Z" fill="#d97706"><title>观察优化 7条</title></path>
+          <path d="M115 110 L49 148 A74 74 0 1 1 115 36 Z" fill="#dc2626"><title>清库优先 10条</title></path>
+          <circle cx="115" cy="110" r="42" fill="#fff"></circle>
+          <text x="98" y="105" font-size="22" font-weight="800" fill="#1e293b">24</text><text x="94" y="126" font-size="12" fill="#64748b">Listings</text>
+          <rect x="260" y="54" width="18" height="18" rx="4" fill="#16a34a"></rect><text x="288" y="68" font-size="13" fill="#334155">继续售卖 7条</text>
+          <rect x="260" y="94" width="18" height="18" rx="4" fill="#d97706"></rect><text x="288" y="108" font-size="13" fill="#334155">观察优化 7条</text>
+          <rect x="260" y="134" width="18" height="18" rx="4" fill="#dc2626"></rect><text x="288" y="148" font-size="13" fill="#334155">清库优先 10条</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="section grid two">
+    <div class="card">
+      <h2>外部关键词机会 / 风险</h2>
+      <div class="table-wrap">
+        <div class="zhcx-detail-download-bar" data-zhcx-detail-download="true"><a class="zhcx-detail-download-link" href="data:text/csv;charset=utf-8;base64,77u/5YWz6ZSu6K+NLOermeeCuS/mnIjku70s5pCc57Si6YePLOi0reS5sOmHjyzotK3kubDnjocs5Yik5patDQp3b3JsZCBjdXAgZGVjb3JhdGlvbnMsVVMgLyAyMDI2LTA2LCIxMjAsOTg1Iiw5MTksMC43NiUs5LqL5Lu26K+NIOeDreW6pumrmOS9hui0reS5sOeOh+S9ju+8jOi1m+WQjuS4jeWunOe7p+e7reaKvOS4u+ivjQ0Kc29jY2VyIHBhcnR5IGRlY29yYXRpb25zLFVTIC8gMjAyNi0wNiwiMzksNzExIiwiMSw1MDUiLDMuNzklLOi9rOWcuuaZryDotrPnkIPmtL7lr7nmib/mjqXlipvovoPlpb0NCnNvY2NlciBiaXJ0aGRheSBwYXJ0eSBkZWNvcmF0aW9ucyxVUyAvIDIwMjYtMDYsIjI5LDE2NyIsIjEsMTAwIiwzLjc3JSzovazlnLrmma8g6YCC5ZCI5qGM5biDL+a0vuWvueeUqOWTgQ0Kc29jY2VyIHJ1ZyxVUyAvIDIwMjYtMDYsIjcsNjAxIiw4MTcsMTAuNzUlLOW4uOinhOmcgOaxgiDlnLDmr68v5YS/56ul5oi/L+i/kOWKqOijhemlsOWPr+e7p+e7reWNlg0Kd2luZSBzdG9wcGVyLFVTIC8gMjAyNi0wNiwiNDcsODMxIiwiMyw2NDkiLDcuNjMlLOW4uOmdkuS9huernuS6ieW8uiDor4Torrrpl6jmp5vpq5jvvIzpgILlkIjplb/lsL7or40NCmRlc2sgZmxhZ3MsVVMgLyAyMDI2LTA2LDE0MCwxLOe6pjAuOTglLOmcgOaxguW8sSDmoYzml5fnsbvkvJjlhYjmuIXlupMv5L2O6aKE566X" download="世界杯标签_FBA_Listing_赛后售卖机会可视化报表_表格_1_20260724112245.csv" title="下载明细 CSV" role="button" aria-label="下载明细 CSV">
+<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+  <path d="M7 10l5 5 5-5"></path>
+  <path d="M12 15V3"></path>
+</svg></a></div><table style="min-width:760px">
+          <thead><tr><th>关键词</th><th>站点/月份</th><th class="num">搜索量</th><th class="num">购买量</th><th class="num">购买率</th><th>判断</th></tr></thead>
+          <tbody>
+            <tr><td>world cup decorations</td><td>US / 2026-06</td><td class="num">120,985</td><td class="num">919</td><td class="num">0.76%</td><td><span class="badge b-red">事件词</span> 热度高但购买率低，赛后不宜继续押主词</td></tr>
+            <tr><td>soccer party decorations</td><td>US / 2026-06</td><td class="num">39,711</td><td class="num">1,505</td><td class="num">3.79%</td><td><span class="badge b-green">转场景</span> 足球派对承接力较好</td></tr>
+            <tr><td>soccer birthday party decorations</td><td>US / 2026-06</td><td class="num">29,167</td><td class="num">1,100</td><td class="num">3.77%</td><td><span class="badge b-green">转场景</span> 适合桌布/派对用品</td></tr>
+            <tr><td>soccer rug</td><td>US / 2026-06</td><td class="num">7,601</td><td class="num">817</td><td class="num">10.75%</td><td><span class="badge b-green">常规需求</span> 地毯/儿童房/运动装饰可继续卖</td></tr>
+            <tr><td>wine stopper</td><td>US / 2026-06</td><td class="num">47,831</td><td class="num">3,649</td><td class="num">7.63%</td><td><span class="badge b-amber">常青但竞争强</span> 评论门槛高，适合长尾词</td></tr>
+            <tr><td>desk flags</td><td>US / 2026-06</td><td class="num">140</td><td class="num">1</td><td class="num">约0.98%</td><td><span class="badge b-red">需求弱</span> 桌旗类优先清库/低预算</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <h2>关键词购买率对比</h2>
+      <div class="svgbox">
+        <svg viewBox="0 0 620 300" width="100%" height="300" role="img" aria-label="关键词购买率对比条形图">
+          <rect width="620" height="300" fill="#fff"></rect>
+          <line x1="190" y1="260" x2="585" y2="260" stroke="#e2e8f0"></line>
+          <text x="12" y="35" font-size="12" fill="#334155">world cup decorations</text><rect x="190" y="22" width="28" height="18" rx="4" fill="#dc2626"></rect><text x="225" y="36" font-size="12" fill="#64748b">0.76%</text>
+          <text x="12" y="78" font-size="12" fill="#334155">soccer party decorations</text><rect x="190" y="65" width="139" height="18" rx="4" fill="#16a34a"></rect><text x="336" y="79" font-size="12" fill="#64748b">3.79%</text>
+          <text x="12" y="121" font-size="12" fill="#334155">soccer birthday party</text><rect x="190" y="108" width="138" height="18" rx="4" fill="#16a34a"></rect><text x="335" y="122" font-size="12" fill="#64748b">3.77%</text>
+          <text x="12" y="164" font-size="12" fill="#334155">soccer rug</text><rect x="190" y="151" width="394" height="18" rx="4" fill="#2563eb"></rect><text x="590" y="165" font-size="12" fill="#64748b">10.75%</text>
+          <text x="12" y="207" font-size="12" fill="#334155">wine stopper</text><rect x="190" y="194" width="279" height="18" rx="4" fill="#7c3aed"></rect><text x="476" y="208" font-size="12" fill="#64748b">7.63%</text>
+          <text x="12" y="250" font-size="12" fill="#334155">desk flags</text><rect x="190" y="237" width="36" height="18" rx="4" fill="#d97706"></rect><text x="233" y="251" font-size="12" fill="#64748b">约0.98%</text>
+        </svg>
+      </div>
+      <div class="small">购买率用于判断需求承接质量；World Cup 词有热度但成交效率弱，soccer rug / wine stopper / soccer party 类更适合作为赛后转场景方向。</div>
+    </div>
+  </section>
+
+  <section class="section grid two">
+    <div class="card">
+      <h2>站点库存分布</h2>
+      <div class="bars">
+        <div class="barrow"><span>CA</span><div class="bar"><span style="width:100%;background:var(--blue)"></span></div><b>184 件</b></div>
+        <div class="barrow"><span>US</span><div class="bar"><span style="width:96.7%;background:var(--green)"></span></div><b>178 件</b></div>
+        <div class="barrow"><span>MX</span><div class="bar"><span style="width:68.5%;background:var(--amber)"></span></div><b>126 件</b></div>
+        <div class="barrow"><span>DE</span><div class="bar"><span style="width:22.8%;background:var(--red)"></span></div><b>42 件</b></div>
+        <div class="barrow"><span>UK</span><div class="bar"><span style="width:15.2%;background:var(--purple)"></span></div><b>28 件</b></div>
+      </div>
+      <div class="small" style="margin-top:8px">按 24 条清单的当前 FBA 库存汇总。用户提供总库存约 545 件；逐行清单相加为 558 件，差异来自上一轮报表口径/明细口径差异，本文保留用户确认的总口径并在站点图按清单逐行展示。</div>
+    </div>
+    <div class="card">
+      <h2>建议动作分区</h2>
+      <div class="grid three">
+        <div><span class="badge b-green">继续售卖</span><ul><li>去 World Cup 主词，改 soccer party / birthday / sports event。</li><li>高动销低库存款不清仓，先看 7-14 天自然单。</li><li>在途款先消化，不新增补货。</li></ul></div>
+        <div><span class="badge b-amber">观察优化</span><ul><li>用长尾词低预算测试，不打大词。</li><li>轻 Coupon 或价格测试，观察点击和订单。</li><li>7-14 天无改善转清库。</li></ul></div>
+        <div><span class="badge b-red">清库优先</span><ul><li>无评论/无动销/强赛事款先清库存。</li><li>MX 有在途风险款复核拦截或延后。</li><li>不再继续补货，不扩大广告。</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section card">
+    <h2>24 条 Listing 完整关注清单</h2>
+    <div class="table-wrap">
+      <div class="zhcx-detail-download-bar" data-zhcx-detail-download="true"><a class="zhcx-detail-download-link" href="data:text/csv;charset=utf-8;base64,77u/IyxNU0tVIC8gQVNJTiznq5nngrksRkJB5bqT5a2YLOi/kTMw5aSp6ZSA6YePLOWklumDqOmcgOaxgi/otovlir/liKTmlq0s5bu66K6u5YiG5bGCLOWFt+S9k+WKqOS9nA0KMSxTMTQwMTE1NjQ3TTFaWVRLWDlCMEdNMTNXVEdNLE1YLDMzLDU2LOeyvuehriBBU0lOIOacieWklumDqOmUgOmHj++8jOi2s+eQg+a0vuWvueahjOW4g+mcgOaxguS7jeWPr+aJv+aOpeOAgiznu6fnu63llK7ljZYs6L2sIHNvY2NlciBwYXJ0eSB0YWJsZWNsb3RoIC8gYmlydGhkYXkgLyBzcG9ydHMgZXZlbnTvvIzlhYjmtojljJblupPlrZjlkozlnKjpgJTvvIzkuI3mlrDlop7ooaXotKfjgIINCjIsNUs0MTE1NzE2NEtDUERRSlJCMEdNMThDM0hYLENBLDEwNiwzMiznsr7noa4gQVNJTiDlpJbpg6jmnIjplIDph48yOe+8m+WcsOavr+exu+aciemVv+acn+WcuuaZr+OAgiznu6fnu63llK7ljZYs6L2sIHNvY2NlciBydWcgLyBib3lzIHJvb20gLyBzcG9ydHMgZGVjb3LvvIzovbsgQ291cG9u77yM55uu5qCHNjDigJM5MOWkqemZjeW6k+WtmOOAgg0KMyxQQ0UxMTU2NDdIRFlQNlEwNkIwR00xMURYUFMsQ0EsMTAsMTcs5aSW6YOo5pyq57K+56Gu5Yy56YWN77yM5L2G6Laz55CD5rS+5a+55qGM5biD6ZyA5rGC5by644CCLOe7p+e7reWUruWNlizkuI3muIXku5PvvIzmlLkgc29jY2VyIHBhcnR5IHRhYmxlY292ZXIgLyBiaXJ0aGRheSAvIGdhbWUgZGF544CCDQo0LDI5MTUyMTEzUzVORDZSTlNCMEdKM0NWOVk4LE1YLDUsMTQs5aSW6YOo5pyq57K+56Gu5Yy56YWN77yM57KJ5Lid56S85ZOBL+mSpeWMmeaJo+S7jeacieWcuuaZr+OAgiznu6fnu63llK7ljZYs6L2sIE1leGljbyBmYW4gZ2lmdCAvIHNvY2NlciBrZXljaGFpbiAvIHBhcnR5IGZhdm9y77yM5YWI5Y2W546w6LSn44CCDQo1LDdDSzkxMTU3MTY1Q1RCODZCREIwR00xOFY5NTcsTVgsNywxMSzkuI7lnLDmr68v5YS/56ul5oi/L+i/kOWKqOijhemlsOebuOWFs++8jOacieaJv+aOpeepuumXtOOAgiznu6fnu63llK7ljZYs6L2sIHNvY2NlciBydWcgLyBraWRzIHJvb20gLyBmb290YmFsbCBkZWNvcu+8jOaaguWBnOaWsOWinuihpei0p+OAgg0KNixUV0IxMDQ2NDBKVlkyMlAwWkIwR0tCM0JOTkIsQ0EsNSw5LOmFkuWQp+eUqOWTgeWPr+W4uOinhOWUruWNlu+8jOS9hueyvuehriBBU0lOIOWklumDqOaciOmUgOmHj+S4ujDjgIIs6KeC5a+f5LyY5YyWLOi9rCBob21lIGJhciAvIHBhcnR5IGRlY29yIC8gdGVxdWlsYSBmbGlnaHQgdHJhee+8jDflpKnml6DljZXliJnmuIXnkIbjgIINCjcsRzE3NTQ1MFJENEYySlBKQjBHTFFTUlgxWCxVUywzNCw0LOeyvuehriBBU0lOIOWklumDqOaciOmUgOmHjzE477yb6YWS5aGe57G75bi46Z2S77yM5L2G56ue5ZOB6K+E6K665by644CCLOinguWvn+S8mOWMlizkuI3miZMgd2luZSBzdG9wcGVyIOWkp+ivje+8jOi9rCBub3ZlbHR5IHNwb3J0cyBnaWZ0IC8gZ2FtZSBkYXkgYmFyIGRlY29y44CCDQo4LDlZMTAzMjMyUUVKS1hHMDZCMEdIMkRTWjRSLFVTLDI0LDQs57K+56GuIEFTSU4g5aSW6YOo5pyI6ZSA6YePNe+8m2Rlc2sgZmxhZ3Mg57G75pW05L2T6ZyA5rGC5byx44CCLOinguWvn+S8mOWMlizkvY7pooTnrpfmtYvor5XvvIzovawgb2ZmaWNlIC8gc3BvcnRzIGJhciAvIHZpZXdpbmcgcGFydHnvvIwxNOWkqeaXoOaUueWWhOi9rOa4heW6k+OAgg0KOSxJODE3MjM0OU80Sjc2N01PQjBHTThGTEZGNCxERSw0MiwzLERFIOeyvuehruWklumDqOaVsOaNrue8uuWkse+8m+WGhemDqOW6k+WtmOmrmOOAgemUgOmHj+W8seOAgizmuIXlupPkvJjlhYgs6ZmN5Lu3K0NvdXBvbu+8jOaUuSBGdcOfYmFsbCBQYXJ0eSBTdGlja2VyIC8gRGVrb3JhdGlvbu+8jOS4jeihpei0p+OAgg0KMTAsSDExMDA2MjRZUERDOVVKU0IwR01YTVJYOTksVVMsMTQsMyzlvLrotZvkuovnlKjlk4HvvIzotZvlkI7pnIDmsYLoobDlh4/jgIIs5riF5bqT5LyY5YWILOWBmjEwJeKAkzIwJSBDb3Vwb27vvIzovawgZ2FtZSBkYXkgbm9pc2VtYWtlciAvIHNwb3J0cyBwYXJ0eeOAgg0KMTEsT1pWSzEwNDY0MFcxMTU0NE84QjBHS0I0N0RIMyxNWCwyMCwyLOmFkuWFty/llaTphZLmna/lj6/ovazluLjop4TvvIzkvYYgTVgg57K+56Gu5aSW6YOo5pWw5o2u57y65aSx44CCLOinguWvn+S8mOWMlizovawgYmVlciBtdWcgLyBzcG9ydHMgYmFyIC8gcGFydHkgY3Vw77yM5L2O6aKE566X5rWL6K+N77yM5LiN6KGl6LSn44CCDQoxMixWSEExMTMzMzA3MVZRNU00NEIwR0gyR1BQMTQsQ0EsMjcsMSxEZXNrIGZsYWdzIOmcgOaxguW8se+8jOacrOWTgeaXoOivhOiuuuOAgizmuIXlupPkvJjlhYgs6L2sIG9mZmljZSBkZXNrIGZsYWdzIC8gaW50ZXJuYXRpb25hbCBmbGFnc++8jOebtOaOpea4heW6k+OAgg0KMTMsWFJQMzA0TTBHMTIzT0lNTjIwQjBHUUc2WTFRVixVUywyMCwxLOWwj+ekvOWTgS/pkqXljJnmiaPmnInmib/mjqXvvIzkvYbnq57lk4HlpJrkuLrlpZfoo4XjgIIs6KeC5a+f5LyY5YyWLOi9rCBzb2NjZXIgcGFydHkgZmF2b3JzIC8ga2V5Y2hhaW4gZ2lmdO+8jOWwj+minSBDb3Vwb24g6KeC5a+fN+KAkzE05aSp44CCDQoxNCwxNEgwOTQzMDgwOVBXQzgwWkIwR0gyNVpaRDEsQ0EsMTcsMSzml5fluJwv5qiq5bmF5YGP6LWb5LqL5ZGo5pyf77yM6LWb5ZCO6aOO6Zmp6auY44CCLOa4heW6k+S8mOWFiCzovawgb3V0ZG9vciBmbGFncyAvIHNwb3J0cyBjb2xsZWN0aWJsZSBiYW5uZXLvvIzkv4PplIDmuIXnkIbjgIINCjE1LFNVMTE1NjQ3QzM1WDdIUDFCMEdNMTdUTjZZLFVTLDM4LDAs5ouJ6Iqx57G75Y+v6L2s6Laz55CD5rS+5a+577yM5L2G5pys5ZOB5peg6K+E6K6644CB5peg6ZSA6YeP44CB5bqT5a2Y6auY44CCLOa4heW6k+S8mOWFiCzmlLkgc29jY2VyIHBhcnR5IGdhcmxhbmQgLyBzcG9ydHMgcGFydHkgc3RyZWFtZXLvvIzlkIzmraXpmY3ku7fmuIXlupPjgIINCjE2LEQ2MTUzNjAzQjhNQjhSWDlCMEdYSFhZM1I4LFVTLDI4LDAs55Sf5pel5rS+5a+55Zy65pmv5Y+v6L2s77yM5L2G5YaF6YOo5peg5Yqo6ZSA44CCLOa4heW6k+S8mOWFiCzovawgc29jY2VyIGJpcnRoZGF5IHBhcnR5IHRhYmxlY2xvdGjvvIwxNSXigJMyNSUgQ291cG9u44CCDQoxNywwVjEwMDYyNE5GRjAzTFBBQjBHTVdZN0dWWCxVUywyOCzmnKrljLnphY0s5ouJ6IqxL+ijhemlsOWPr+aJv+aOpe+8jOS9huaXoOWGhemDqOmUgOWUruivgeaNruOAgizmuIXlupPkvJjlhYgs5pS56K+NK+a4heW6k++8jOS4jeaKleWkp+mihOeul+OAgg0KMTgsU0QyMTUzNjA0SEk4VFdIUkNCMEdYSkNOQ1pWLENBLDE4LDAs5LiW55WM5p2v5by655u45YWz77yMQ0Eg5aSW6YOo5pWw5o2u57y65Y+j44CCLOa4heW6k+S8mOWFiCzovawgc29jY2VyIHBhcnR5IC8gd2F0Y2ggcGFydHkgc3VwcGxpZXPvvIzovbvkv4PplIDmuIXlupPlrZjjgIINCjE5LDYxOTAzNDNIOU9MODJNMUIwRzRRSlJYMTcsVUssMTgsMCznsr7noa4gQVNJTiDlpJbpg6jmnIjplIDph48w77yMQlNS5b6I5byx44CCLOa4heW6k+S8mOWFiCzotrPnkIPnnLzplZwv5ouN54Wn6YGT5YW35LyY5YWI5riF5bqT77yM5LiN5bu66K6u5bm/5ZGK5oqV5YWl44CCDQoyMCxFMDE4NDYwMzExVlpRMzJDQjBHSlFZSldNVixNWCwxNizmnKrljLnphY0s5LiW55WM5p2v5by655u45YWz77yM5peg6ZSA5ZSu6K+B5o2u77yM5LiU5pyJ5Zyo6YCU6aOO6Zmp44CCLOa4heW6k+S8mOWFiCzlpI3moLjlnKjpgJTmmK/lkKbog73mi6bmiKov5bu25ZCO77yM546w6LSn6ZmN5Lu35riF5bqT44CCDQoyMSxLN0gxMjAzNjA3WDk0RE9LRkdCMEdIV1NNNEc2LFVTLDE1LOacquWMuemFjSznlJ/ml6XmtL7lr7nnlKjlk4Hlj6/ovazlnLrmma/vvIzkvYbml6Dov5EzMOWkqemUgOWUruivgeaNruOAgizmuIXlupPkvJjlhYgs5pS5IHNvY2NlciBiaXJ0aGRheSAvIHRhYmxlIGRlY29y77yMN+WkqeaXoOWNlei9rOa4heS7k+S7t+OAgg0KMjIsWjEwNDY0ME40VlM3MTVYQjBHS0I1UkxZMixVSywxMCwwLOWVpOmFkuadry/phZLlkKfnsbvlj6/luLjop4TllK7ljZbvvIzkvYYgVUsg57K+56Gu6K+B5o2u5LiN6Laz44CCLOinguWvn+S8mOWMlizovawgYmVlciBtdWcgLyBmb290YmFsbCBwYXJ0eSAvIHNwb3J0cyBiYXLvvIznn63mnJ8gQ291cG9uIOa1i+ivleOAgg0KMjMsSEgxODQ2MDMzNlM4RVY2RUIwR0pRSjFSVlksTVgsOSwwLOS4lueVjOadr+W8uuebuOWFs++8jOaXoOWGhemDqOWKqOmUgO+8jOS4lOacieWcqOmAlOmjjumZqeOAgizmuIXlupPkvJjlhYgs5aSN5qC45Zyo6YCU5aSE55CG77yM546w6LSn6ZmN5Lu377yM6L2sIGZhbiBwYXJ0eSBhY2Nlc3Nvcmllc+OAgg0KMjQsMTEzMDQxVUpYREREVUtCMEdRQlRUR1FRLENBLDEsMCzlpJbpg6jmnKrnsr7noa7ljLnphY3vvIzkvYblupPlrZjmnoHkvY7vvIzpo47pmanlsI/jgIIs6KeC5a+f5LyY5YyWLOS4jeihpei0p++8jOaMguWUrua4heWwvui0p+WNs+WPr+OAgg==" download="世界杯标签_FBA_Listing_赛后售卖机会可视化报表_表格_2_20260724112245.csv" title="下载明细 CSV" role="button" aria-label="下载明细 CSV">
+<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+  <path d="M7 10l5 5 5-5"></path>
+  <path d="M12 15V3"></path>
+</svg></a></div><table>
+        <thead><tr><th>#</th><th>MSKU / ASIN</th><th>站点</th><th class="num">FBA库存</th><th class="num">近30天销量</th><th>外部需求/趋势判断</th><th>建议分层</th><th>具体动作</th></tr></thead>
+        <tbody>
+<tr><td class="rank">1</td><td><div class="msku">S140115647M1ZYTKX9</div><div class="small">B0GM13WTGM</div></td><td>MX</td><td class="num">33</td><td class="num">56</td><td class="evidence">精确 ASIN 有外部销量，足球派对桌布需求仍可承接。</td><td><span class="badge b-green">继续售卖</span></td><td class="action">转 soccer party tablecloth / birthday / sports event，先消化库存和在途，不新增补货。</td></tr>
+<tr><td class="rank">2</td><td><div class="msku">5K41157164KCPDQJR</div><div class="small">B0GM18C3HX</div></td><td>CA</td><td class="num">106</td><td class="num">32</td><td>精确 ASIN 外部月销量29；地毯类有长期场景。</td><td><span class="badge b-green">继续售卖</span></td><td>转 soccer rug / boys room / sports decor，轻 Coupon，目标60–90天降库存。</td></tr>
+<tr><td class="rank">3</td><td><div class="msku">PCE115647HDYP6Q06</div><div class="small">B0GM11DXPS</div></td><td>CA</td><td class="num">10</td><td class="num">17</td><td>外部未精确匹配，但足球派对桌布需求强。</td><td><span class="badge b-green">继续售卖</span></td><td>不清仓，改 soccer party tablecover / birthday / game day。</td></tr>
+<tr><td class="rank">4</td><td><div class="msku">29152113S5ND6RNS</div><div class="small">B0GJ3CV9Y8</div></td><td>MX</td><td class="num">5</td><td class="num">14</td><td>外部未精确匹配，粉丝礼品/钥匙扣仍有场景。</td><td><span class="badge b-green">继续售卖</span></td><td>转 Mexico fan gift / soccer keychain / party favor，先卖现货。</td></tr>
+<tr><td class="rank">5</td><td><div class="msku">7CK91157165CTB86BD</div><div class="small">B0GM18V957</div></td><td>MX</td><td class="num">7</td><td class="num">11</td><td>与地毯/儿童房/运动装饰相关，有承接空间。</td><td><span class="badge b-green">继续售卖</span></td><td>转 soccer rug / kids room / football decor，暂停新增补货。</td></tr>
+<tr><td class="rank">6</td><td><div class="msku">TWB104640JVY22P0Z</div><div class="small">B0GKB3BNNB</div></td><td>CA</td><td class="num">5</td><td class="num">9</td><td>酒吧用品可常规售卖，但精确 ASIN 外部月销量为0。</td><td><span class="badge b-amber">观察优化</span></td><td>转 home bar / party decor / tequila flight tray，7天无单则清理。</td></tr>
+<tr><td class="rank">7</td><td><div class="msku">G175450RD4F2JPJ</div><div class="small">B0GLQSRX1X</div></td><td>US</td><td class="num">34</td><td class="num">4</td><td>精确 ASIN 外部月销量18；酒塞类常青，但竞品评论强。</td><td><span class="badge b-amber">观察优化</span></td><td>不打 wine stopper 大词，转 novelty sports gift / game day bar decor。</td></tr>
+<tr><td class="rank">8</td><td><div class="msku">9Y103232QEJKXG06</div><div class="small">B0GH2DSZ4R</div></td><td>US</td><td class="num">24</td><td class="num">4</td><td>精确 ASIN 外部月销量5；desk flags 类整体需求弱。</td><td><span class="badge b-amber">观察优化</span></td><td>低预算测试，转 office / sports bar / viewing party，14天无改善转清库。</td></tr>
+<tr><td class="rank">9</td><td><div class="msku">I8172349O4J767MO</div><div class="small">B0GM8FLFF4</div></td><td>DE</td><td class="num">42</td><td class="num">3</td><td>DE 精确外部数据缺失；内部库存高、销量弱。</td><td><span class="badge b-red">清库优先</span></td><td>降价+Coupon，改 Fußball Party Sticker / Dekoration，不补货。</td></tr>
+<tr><td class="rank">10</td><td><div class="msku">H1100624YPDC9UJS</div><div class="small">B0GMXMRX99</div></td><td>US</td><td class="num">14</td><td class="num">3</td><td>强赛事用品，赛后需求衰减。</td><td><span class="badge b-red">清库优先</span></td><td>做10%–20% Coupon，转 game day noisemaker / sports party。</td></tr>
+<tr><td class="rank">11</td><td><div class="msku">OZVK104640W11544O8</div><div class="small">B0GKB47DH3</div></td><td>MX</td><td class="num">20</td><td class="num">2</td><td>酒具/啤酒杯可转常规，但 MX 精确外部数据缺失。</td><td><span class="badge b-amber">观察优化</span></td><td>转 beer mug / sports bar / party cup，低预算测词，不补货。</td></tr>
+<tr><td class="rank">12</td><td><div class="msku">VHA11333071VQ5M44</div><div class="small">B0GH2GPP14</div></td><td>CA</td><td class="num">27</td><td class="num">1</td><td>Desk flags 需求弱，本品无评论。</td><td><span class="badge b-red">清库优先</span></td><td>转 office desk flags / international flags，直接清库。</td></tr>
+<tr><td class="rank">13</td><td><div class="msku">XRP304M0G123OIMN20</div><div class="small">B0GQG6Y1QV</div></td><td>US</td><td class="num">20</td><td class="num">1</td><td>小礼品/钥匙扣有承接，但竞品多为套装。</td><td><span class="badge b-amber">观察优化</span></td><td>转 soccer party favors / keychain gift，小额 Coupon 观察7–14天。</td></tr>
+<tr><td class="rank">14</td><td><div class="msku">14H09430809PWC80Z</div><div class="small">B0GH25ZZD1</div></td><td>CA</td><td class="num">17</td><td class="num">1</td><td>旗帜/横幅偏赛事周期，赛后风险高。</td><td><span class="badge b-red">清库优先</span></td><td>转 outdoor flags / sports collectible banner，促销清理。</td></tr>
+<tr><td class="rank">15</td><td><div class="msku">SU115647C35X7HP1</div><div class="small">B0GM17TN6Y</div></td><td>US</td><td class="num">38</td><td class="num">0</td><td>拉花类可转足球派对，但本品无评论、无销量、库存高。</td><td><span class="badge b-red">清库优先</span></td><td>改 soccer party garland / sports party streamer，同步降价清库。</td></tr>
+<tr><td class="rank">16</td><td><div class="msku">D6153603B8MB8RX9</div><div class="small">B0GXHXY3R8</div></td><td>US</td><td class="num">28</td><td class="num">0</td><td>生日派对场景可转，但内部无动销。</td><td><span class="badge b-red">清库优先</span></td><td>转 soccer birthday party tablecloth，15%–25% Coupon。</td></tr>
+<tr><td class="rank">17</td><td><div class="msku">0V100624NFF03LPA</div><div class="small">B0GMWY7GVX</div></td><td>US</td><td class="num">28</td><td class="num">未匹配</td><td>拉花/装饰可承接，但无内部销售证据。</td><td><span class="badge b-red">清库优先</span></td><td>改词+清库，不投大预算。</td></tr>
+<tr><td class="rank">18</td><td><div class="msku">SD2153604HI8TWHRC</div><div class="small">B0GXJCNCZV</div></td><td>CA</td><td class="num">18</td><td class="num">0</td><td>世界杯强相关，CA 外部数据缺口。</td><td><span class="badge b-red">清库优先</span></td><td>转 soccer party / watch party supplies，轻促销清库存。</td></tr>
+<tr><td class="rank">19</td><td><div class="msku">6190343H9OL82M1</div><div class="small">B0G4QJRX17</div></td><td>UK</td><td class="num">18</td><td class="num">0</td><td>精确 ASIN 外部月销量0，BSR很弱。</td><td><span class="badge b-red">清库优先</span></td><td>足球眼镜/拍照道具优先清库，不建议广告投入。</td></tr>
+<tr><td class="rank">20</td><td><div class="msku">E018460311VZQ32C</div><div class="small">B0GJQYJWMV</div></td><td>MX</td><td class="num">16</td><td class="num">未匹配</td><td>世界杯强相关，无销售证据，且有在途风险。</td><td><span class="badge b-red">清库优先</span></td><td>复核在途是否能拦截/延后，现货降价清库。</td></tr>
+<tr><td class="rank">21</td><td><div class="msku">K7H1203607X94DOKFG</div><div class="small">B0GHWSM4G6</div></td><td>US</td><td class="num">15</td><td class="num">未匹配</td><td>生日派对用品可转场景，但无近30天销售证据。</td><td><span class="badge b-red">清库优先</span></td><td>改 soccer birthday / table decor，7天无单转清仓价。</td></tr>
+<tr><td class="rank">22</td><td><div class="msku">Z104640N4VS715X</div><div class="small">B0GKB5RLY2</div></td><td>UK</td><td class="num">10</td><td class="num">0</td><td>啤酒杯/酒吧类可常规售卖，但 UK 精确证据不足。</td><td><span class="badge b-amber">观察优化</span></td><td>转 beer mug / football party / sports bar，短期 Coupon 测试。</td></tr>
+<tr><td class="rank">23</td><td><div class="msku">HH18460336S8EV6E</div><div class="small">B0GJQJ1RVY</div></td><td>MX</td><td class="num">9</td><td class="num">0</td><td>世界杯强相关，无内部动销，且有在途风险。</td><td><span class="badge b-red">清库优先</span></td><td>复核在途处理，现货降价，转 fan party accessories。</td></tr>
+<tr><td class="rank">24</td><td><div class="msku">113041UJXDDDUK</div><div class="small">B0GQBTTGQQ</div></td><td>CA</td><td class="num">1</td><td class="num">0</td><td>外部未精确匹配，但库存极低，风险小。</td><td><span class="badge b-amber">观察优化</span></td><td>不补货，挂售清尾货即可。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section grid two">
+    <div class="card">
+      <h2>运营执行清单</h2>
+      <ul>
+        <li><b>关键词替换：</b>把 World Cup 主词降级为辅助词，主推 soccer party、soccer birthday party、game day、sports bar、boys room、home bar 等。</li>
+        <li><b>广告策略：</b>继续售卖款保留低预算长尾词测试；观察款 7-14 天设停止条件；清库款不扩大广告。</li>
+        <li><b>库存动作：</b>MX 有在途/待发风险的款，先复核能否拦截、延后或减少继续入仓。</li>
+        <li><b>价格动作：</b>清库优先款使用 10%-25% Coupon/降价测试；无动销且无评论款不再补货。</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>数据口径与限制</h2>
+      <ul>
+        <li>内部库存：2026-07-01 最新 FBA 月度库存快照，当前 FBA 库存≥1。</li>
+        <li>内部销量：截至 2026-07-24 的近30天发货销量。</li>
+        <li>外部趋势：关键词趋势多数最新到 2026年6月；不直接代表 7月下旬赛后实时需求。</li>
+        <li>站点覆盖：US 数据较完整；CA/MX/UK/DE 部分外部精确 ASIN 或关键词数据不足，已在表中标注。</li>
+        <li>总库存差异：用户确认总 FBA 库存约 545 件；24 条逐行库存相加为 558 件，图表按不同口径分别说明。</li>
+      </ul>
+    </div>
+  </section>
+  <div class="footer">本报表为上一轮已完成分析的静态可视化呈现，未重新采数；所有数值、分层和建议来自已确认的内部库存/销量分析与外部搜索趋势、竞品证据。</div>
+</div>
+
+</body></html>
